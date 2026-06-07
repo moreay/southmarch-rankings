@@ -146,103 +146,74 @@ body{
 <div id="tip"></div>
 
 <script>
-// ═══════════════════════════════════════════════════════════════
-//  DATA — Edit this section to populate the rankings
-// ═══════════════════════════════════════════════════════════════
-//
-//  versions[] must be ordered NEWEST FIRST
-//
-//  Each version:
-//    { versionId: 'v2',
-//      label:     'Date shown in selector',
-//      entries:   [ ... ] }
-//
-//  Each entry:
-//    { id:       'stable_id',     // MUST be consistent across versions
-//      rank:     1,               // 1 = highest; ranks 1-10 get Ten Great styling
-//      name:     'The Name',
-//      trueName: 'Real Name',     // optional
-//      status:   'normal',        // 'normal' | 'deceased'
-//      tooltip:  'Guild notes.' }
-//
-//  Change indicators are computed automatically by comparing
-//  consecutive versions. Entries absent from the prior version
-//  are marked NEW automatically. Deceased entries sort to the bottom.
-//
-// ═══════════════════════════════════════════════════════════════
 const DATA = {
   heroes:[
     { versionId:'v2', label:'14th of Harvestmoon, Year 432', entries:[
-      {id:'divine_dragon', rank:1,  name:'The Divine Dragon', trueName:'Tian Lung',          status:'normal',   tooltip:'Herald of the Forever King and the "Heavenly Dragon Ancestor" of the Eastern Continent. Master of the Thousand Companions, the funeral legion of the Forever King, comprised of numerous fallen Heroes and Villains.'},
-      {id:'heavenly_legate', rank:2,  name:'The Heavenly Legate', trueName:'Saint Anastasia of the Mask',        status:'normal',   tooltip:'Returned Saint of the Sun God Radiance. One of the founders of the Eternal Blazing Crusade and a companion of the god when he was mortal.'},
-      {id:'suns_shadow',    rank:3,  name:'The Suns Shadow',    trueName:'Saint Kuro',                status:'normal',   tooltip:'Returned Saint of the Sun God Radiance. His mercilessness towards the enemies of the church is well known, as is the power of his Domain, Eclipse.'},
-      {id:'errant_inquisitor', rank:4,  name:'The Errant Inquisitor', trueName:'Thaldor Del Soleil',          status:'normal',   tooltip:'King of Southmarch and paladin of the Goddess of Peace, Celeste.'},
-      {id:'risen_justiciar', rank:5,  name:'The Risen Justiciar', trueName:'Brevok',          status:'normal',   tooltip:'Revenant Saint of Celeste of venerable age. Notably adverse to violence and completely impossible to kill or imprison.'},
-      {id:'giant_knight',   rank:6,  name:'The Giant Knight',   trueName:'Throm',                status:'normal',   tooltip:'Reclusive but extremely powerful hero known for feats of great strength. Believed to live in the Tombstones. Has a habit of tossing unwanted guests off the mountain.'},
-      {id:'divine_investigator', rank:7,  name:'The Divine Investigator', trueName:'Sandriel',  status:'normal',   tooltip:'Nephilim hero. Iternant by nature of her extremely dangerous Aspects. Notably possesses a so-called broken Name with bizarre and indiscriminant effects. Avoids contact with major population centers. Only hero to have a "Flee on Sight" order from the Inquisition.'},
-      {id:'peerless_inventor',   rank:8,  name:'The Peerless Inventor',   trueName:'Eliza Del Alba',         status:'normal',   tooltip:'Brother of the king of Albion and claimant to the throne known for her powerful and flexible inventions. Lives in exile in Arkhozia. A follower of Celeste.'},
-      {id:'ember_saint',     rank:9,  name:'The Ember Saint',     trueName:'Brother Aldous',         status:'normal',   tooltip:'Wandering healer and Named cleric. Rankled by his own listing, which he considers ungodly pride.'},
-      {id:'last_lantern',    rank:10, name:'The Last Lantern',    trueName:'Unknown',                status:'normal',   tooltip:'Newly emerged. Has neutralised two Named villains in the past season without apparent effort. The Guild is watching closely.'},
-      {id:'autumn_wanderer', rank:11, name:'The Autumn Wanderer', trueName:'Finnea Cors',            status:'normal',   tooltip:'Once considered for the top five. Her retreat from active affairs has cost her standing considerably.'},
-      {id:'sapphire_warden', rank:12, name:'The Sapphire Warden', trueName:'Tomas del Verath',       status:'normal',   tooltip:'Veteran knight of the Sapphire Order. Reliable, if uninspiring.'},
-      {id:'crimson_arbiter', rank:10, name:'The Crimson Arbiter', trueName:'Lord Harwick',           status:'deceased', tooltip:'Veteran battlefield commander. Slain at the Second Crossing by an unknown assailant. Removed from active registry.'},
+      {id:'divine_dragon',         rank:1,  name:'The Divine Dragon',         trueName:'Tian Lung',                   status:'normal',   tooltip:'Herald of the Forever King and the "Heavenly Dragon Ancestor" of the Eastern Continent. Master of the Thousand Companions, the funeral legion of the Forever King, comprised of numerous fallen Heroes and Villains.'},
+      {id:'heavenly_legate',       rank:2,  name:'The Heavenly Legate',       trueName:'Saint Anastasia of the Mask', status:'normal',   tooltip:'Returned Saint of the Sun God Radiance. One of the founders of the Eternal Blazing Crusade and a companion of the god when he was mortal.'},
+      {id:'suns_shadow',           rank:3,  name:"The Sun's Shadow",          trueName:'Saint Kuro',                  status:'normal',   tooltip:'Returned Saint of the Sun God Radiance. His mercilessness towards the enemies of the church is well known, as is the power of his Domain, Eclipse.'},
+      {id:'errant_inquisitor',     rank:4,  name:'The Errant Inquisitor',     trueName:'Thaldor Del Soleil',          status:'normal',   tooltip:'King of Southmarch and paladin of the Goddess of Peace, Celeste.'},
+      {id:'risen_justiciar',       rank:5,  name:'The Risen Justiciar',       trueName:'Brevok',                      status:'normal',   tooltip:'Revenant Saint of Celeste of venerable age. Notably adverse to violence and completely impossible to kill or imprison.'},
+      {id:'giant_knight',          rank:6,  name:'The Giant Knight',          trueName:'Throm',                       status:'normal',   tooltip:'Reclusive but extremely powerful hero known for feats of great strength. Believed to live in the Tombstones. Has a habit of tossing unwanted guests off the mountain.'},
+      {id:'divine_investigator',   rank:7,  name:'The Divine Investigator',   trueName:'Sandriel',                    status:'normal',   tooltip:'Nephilim hero. Iternant by nature of her extremely dangerous Aspects. Notably possesses a so-called broken Name with bizarre and indiscriminant effects. Avoids contact with major population centers. Only hero to have a "Flee on Sight" order from the Inquisition.'},
+      {id:'peerless_inventor',     rank:8,  name:'The Peerless Inventor',     trueName:'Eliza Del Alba',              status:'normal',   tooltip:'Brother of the king of Albion and claimant to the throne known for her powerful and flexible inventions. Lives in exile in Arkhozia. A follower of Celeste.'},
+      {id:'h2p9',                  rank:9,  name:'[Placeholder]',             trueName:'',                            status:'normal',   tooltip:''},
+      {id:'h2p10',                 rank:10, name:'[Placeholder]',             trueName:'',                            status:'normal',   tooltip:''},
+      {id:'h2p11',                 rank:11, name:'[Placeholder]',             trueName:'',                            status:'normal',   tooltip:''},
+      {id:'h2p12',                 rank:12, name:'[Placeholder]',             trueName:'',                            status:'normal',   tooltip:''},
+      {id:'witch_of_woods',        rank:6,  name:'The Witch of the Woods',    trueName:'Eliza',                       status:'deceased', tooltip:'Opponent of the Queen of Winter and her Court. Defeated and consumed by the Winter Court. Removed from active registry.'},
+      {id:'sainted_abbot',         rank:7,  name:'The Sainted Abbot',         trueName:'Amon',                        status:'deceased', tooltip:'Master of the Green Mirror School, one of the Thousand Schools of Southmarch. Lost when his school was swallowed by a planar rift. Removed from active registry.'},
+      {id:'relentless_inquisitor', rank:8,  name:'The Relentless Inquisitor', trueName:'Lady Kafra Belasaron',        status:'deceased', tooltip:'A former member of the Inquisition. Declared dead by the Guild; no body recovered. Removed from active registry.'},
+      {id:'saint_of_swords',       rank:9,  name:'The Saint of Swords',       trueName:'Simon Fernadez de Ortega',    status:'deceased', tooltip:'Venerable swordsman and master of Severance. Former student of Joanne Sandrault. Killed in Shadowfall by the Prince of Thorns and the High Inquisitor. Removed from active registry.'},
+      {id:'the_scion',             rank:10, name:'The Scion',                 trueName:'Unknown',                     status:'deceased', tooltip:'Claimant to the throne of Southmarch. True name unknown. Killed by ambush in Zarzal. Removed from active registry.'},
     ]},
     { versionId:'v1', label:'3rd of Planting Moon, Year 432', entries:[
-      {id:'storm_herald',    rank:1,  name:'The Storm Herald',    trueName:'Unknown',               status:'normal', tooltip:'Origin unknown. Dominant force in the field for two consecutive seasons.'},
-      {id:'sovereign_blade', rank:2,  name:'The Sovereign Blade', trueName:'Aldric Vayne',          status:'normal', tooltip:'Champion of the Conclave of Dawnhold.'},
-      {id:'wandering_flame', rank:3,  name:'The Wandering Flame', trueName:'Seren ap Calder',       status:'normal', tooltip:'Itinerant battle-mystic of no fixed allegiance.'},
-      {id:'pale_chronicler', rank:4,  name:'The Pale Chronicler', trueName:'Mireille Voss',         status:'normal', tooltip:'Senior archivist of the Historiographer Guild.'},
-      {id:'warden_of_tides', rank:5,  name:'The Warden of Tides', trueName:'Oryndel of the Reach', status:'normal', tooltip:'Guardian of the Shallowsea Pact.'},
-      {id:'gilded_tongue',   rank:6,  name:'The Gilded Tongue',   trueName:'Cassia Delmuir',        status:'normal', tooltip:'Named hero of the courts.'},
-      {id:'iron_chancellor', rank:7,  name:'The Iron Chancellor', trueName:'Bertram Holtz',         status:'normal', tooltip:'Hero of the Mercantile Principalities.'},
-      {id:'autumn_wanderer', rank:8,  name:'The Autumn Wanderer', trueName:'Finnea Cors',           status:'normal', tooltip:'Once considered for the top five.'},
-      {id:'ember_saint',     rank:9,  name:'The Ember Saint',     trueName:'Brother Aldous',        status:'normal', tooltip:'Wandering healer and Named cleric.'},
-      {id:'crimson_arbiter', rank:10, name:'The Crimson Arbiter', trueName:'Lord Harwick',          status:'normal', tooltip:'Veteran battlefield commander.'},
-      {id:'sapphire_warden', rank:11, name:'The Sapphire Warden', trueName:'Tomas del Verath',      status:'normal', tooltip:'Veteran knight of the Sapphire Order.'},
+      {id:'divine_dragon',         rank:1,  name:'The Divine Dragon',         trueName:'Tian Lung',                   status:'normal',   tooltip:'Herald of the Forever King and the "Heavenly Dragon Ancestor" of the Eastern Continent. Master of the Thousand Companions, the funeral legion of the Forever King, comprised of numerous fallen Heroes and Villains.'},
+      {id:'risen_justiciar',       rank:2,  name:'The Risen Justiciar',       trueName:'Brevok',                      status:'normal',   tooltip:'Revenant Saint of Celeste of venerable age. Notably adverse to violence and completely impossible to kill or imprison.'},
+      {id:'giant_knight',          rank:3,  name:'The Giant Knight',          trueName:'Throm',                       status:'normal',   tooltip:'Reclusive but extremely powerful hero known for feats of great strength. Believed to live in the Tombstones. Has a habit of tossing unwanted guests off the mountain.'},
+      {id:'divine_investigator',   rank:4,  name:'The Divine Investigator',   trueName:'Sandriel',                    status:'normal',   tooltip:'Nephilim hero. Iternant by nature of her extremely dangerous Aspects. Notably possesses a so-called broken Name with bizarre and indiscriminant effects. Avoids contact with major population centers. Only hero to have a "Flee on Sight" order from the Inquisition.'},
+      {id:'peerless_inventor',     rank:5,  name:'The Peerless Inventor',     trueName:'Eliza Del Alba',              status:'normal',   tooltip:'Brother of the king of Albion and claimant to the throne known for her powerful and flexible inventions. Lives in exile in Arkhozia. A follower of Celeste.'},
+      {id:'witch_of_woods',        rank:6,  name:'The Witch of the Woods',    trueName:'Eliza',                       status:'normal',   tooltip:'Active Named hero and opponent of the Queen of Winter and her Court.'},
+      {id:'sainted_abbot',         rank:7,  name:'The Sainted Abbot',         trueName:'Amon',                        status:'normal',   tooltip:'Master of the Green Mirror School, one of the Thousand Schools of Southmarch.'},
+      {id:'relentless_inquisitor', rank:8,  name:'The Relentless Inquisitor', trueName:'Lady Kafra Belasaron',        status:'normal',   tooltip:'A former member of the Inquisition. Currently missing; believed alive.'},
+      {id:'saint_of_swords',       rank:9,  name:'The Saint of Swords',       trueName:'Simon Fernadez de Ortega',    status:'normal',   tooltip:'Venerable swordsman and master of Severance. Former student of Joanne Sandrault.'},
+      {id:'the_scion',             rank:10, name:'The Scion',                 trueName:'Unknown',                     status:'normal',   tooltip:'Claimant to the throne of Southmarch. True name unknown.'},
     ]},
   ],
   villains:[
     { versionId:'v2', label:'14th of Harvestmoon, Year 432', entries:[
-      {id:'mad_mage',       rank:1,  name:'The Mad Mage',       trueName:'Karthon the Gift-Giver',                status:'normal',   tooltip:'Many Villains have tried to destroy the world. To date, only Karthon has succeeded.'},
-      {id:'end_harbinger', rank:2,  name:'The Harbinger of the End', trueName:'Cornellius Del Alba',        status:'normal',   tooltip:'King of Albion and prophet of the fell god Yargul. Brother of the Peerless Inventor.'},
-      {id:'queen_winter',    rank:3,  name:'The Queen of Winter',    trueName:'Isabella Del Lune',                status:'normal',   tooltip:'Queen of the Principality of Twilight. Former Names include the Fey Enchantress and the Lich Queen. Currently a High Sidhe, the queen of Winter Court.'},
-      {id:'bone_cartographer', rank:4,  name:'The Bone Cartographer', trueName:'Possibly Oravel Mast',   status:'normal',   tooltip:'Maps territories by consuming them. Believed to have eaten two separate principalities.'},
-      {id:'hollow_crown',      rank:5,  name:'The Hollow Crown',      trueName:'Unknown',                status:'normal',   tooltip:'Appears wherever legitimate succession breaks down. The Guild cannot determine if it causes these crises or profits from them.'},
-      {id:'still_voice',       rank:6,  name:'The Still Voice',       trueName:'Unknown',                status:'normal',   tooltip:'An auditory phenomenon as much as a person. Has not been seen. Has been heard.'},
-      {id:'rusted_chain',      rank:7,  name:'The Rusted Chain',      trueName:'Aldous Vek',             status:'normal',   tooltip:'Slaver lord. Has operated continuously for over sixty years despite his apparent age of forty.'},
-      {id:'sable_architect',   rank:8,  name:'The Sable Architect',   trueName:'Lena Vorst',             status:'normal',   tooltip:'Designs structures with purposes the Guild has not been able to classify.'},
-      {id:'gilded_serpent',    rank:9, name:'The Gilded Serpent',    trueName:'Marisol Denn',           status:'normal',   tooltip:'Poisoner, spymaster, and Named villain of the southern trade routes.'},
-      {id:'shattered_bell',    rank:10, name:'The Shattered Bell',    trueName:'Unknown',                status:'normal',   tooltip:'Operates through proxies. The Guild has identified fourteen organisations as likely shells.'},
-      {id:'grey_sovereign',    rank:11, name:'The Grey Sovereign',    trueName:'Possible alias: Devan',  status:'normal',   tooltip:'Minor villain elevated by circumstance. Unlikely to remain on this list.'},
-      {id:'infernal_swordsman',        rank:2,  name:'The Infernal Swordsman',        trueName:'Emmanurel Del Soleil',             status:'deceased',   tooltip:'Former king of Southmarch slain by the Diabolist.'}
+      {id:'mad_mage',              rank:1,  name:'The Mad Mage',              trueName:'Karthon the Gift-Giver',      status:'normal',   tooltip:'Many Villains have tried to destroy the world. To date, only Karthon has succeeded.'},
+      {id:'end_harbinger',         rank:2,  name:'The Harbinger of the End',  trueName:'Cornellius Del Alba',         status:'normal',   tooltip:'King of Albion and prophet of the fell god Yargul. Brother of the Peerless Inventor.'},
+      {id:'queen_winter',          rank:3,  name:'The Queen of Winter',       trueName:'Isabella Del Lune',           status:'normal',   tooltip:'Queen of the Principality of Twilight. Former Names include the Fey Enchantress and the Lich Queen. Currently a High Sidhe, the queen of Winter Court.'},
+      {id:'high_inquisitor',       rank:4,  name:'The High Inquisitor',       trueName:'Martin Beauregard',           status:'normal',   tooltip:''},
+      {id:'prince_thorns',         rank:5,  name:'The Prince of Thorns',      trueName:'Leif',                        status:'normal',   tooltip:'Saint of Janus, known for his brutality and the armor he never removes. Located in Shadowfall.'},
+      {id:'sinister_physician',    rank:6,  name:'The Sinister Physician',    trueName:'Dr. Festus Krox',             status:'normal',   tooltip:'Mercenary physician and alchemist, kobold. Trained as a physician in Salia on the Northern Continent. Known to take extreme measures to collect on payments.'},
+      {id:'watcher_knight',        rank:7,  name:'The Watcher Knight',        trueName:'Holston Sanders',             status:'normal',   tooltip:'Former hero. Following the destruction of Sartoria, has sworn his sword to the Queen of Winter. Wields the Barrow Sword, Ustengrav.'},
+      {id:'fools_idol',            rank:8,  name:"The Fool's Idol",           trueName:'Unknown',                     status:'normal',   tooltip:'Saint of Janus. Has been active for centuries. Appears capable of assuming the identities of others.'},
+      {id:'v2p9',                  rank:9,  name:'[Placeholder]',             trueName:'',                            status:'normal',   tooltip:''},
+      {id:'v2p10',                 rank:10, name:'[Placeholder]',             trueName:'',                            status:'normal',   tooltip:''},
+      {id:'v2p11',                 rank:11, name:'[Placeholder]',             trueName:'',                            status:'normal',   tooltip:''},
+      {id:'infernal_swordsman',    rank:2,  name:'The Infernal Swordsman',    trueName:'Emmanurel Del Soleil',        status:'deceased', tooltip:'Former king of Southmarch slain by the Diabolist.'},
+      {id:'red_lady',              rank:7,  name:'The Red Lady',              trueName:'Ivana Katerina Boranova',     status:'deceased', tooltip:'Fire sorceress of the northern continent. Died during an attempted ascension to godhood. Removed from active registry.'},
     ]},
     { versionId:'v1', label:'3rd of Planting Moon, Year 432', entries:[
-      {id:'iron_throne',       rank:1,  name:'The Iron Throne',       trueName:'Unknown',               status:'normal', tooltip:'Identity unconfirmed. Suspected architect of the Sable Compact.'},
-      {id:'pale_widow',        rank:2,  name:'The Pale Widow',        trueName:'Ysara Fell',            status:'normal', tooltip:'Sorceress of the Shattered Court.'},
-      {id:'high_adjudicator',  rank:3,  name:'The High Adjudicator',  trueName:'Erasmus Crane',         status:'normal', tooltip:'Former magistrate.'},
-      {id:'herald_of_ash',     rank:4,  name:'The Herald of Ash',     trueName:'Unknown',               status:'normal', tooltip:'Appears ahead of catastrophe.'},
-      {id:'bone_cartographer', rank:5,  name:'The Bone Cartographer', trueName:'Possibly Oravel Mast',  status:'normal', tooltip:'Maps territories by consuming them.'},
-      {id:'hollow_crown',      rank:6,  name:'The Hollow Crown',      trueName:'Unknown',               status:'normal', tooltip:'Appears wherever legitimate succession breaks down.'},
-      {id:'rusted_chain',      rank:7,  name:'The Rusted Chain',      trueName:'Aldous Vek',            status:'normal', tooltip:'Slaver lord.'},
-      {id:'still_voice',       rank:8,  name:'The Still Voice',       trueName:'Unknown',               status:'normal', tooltip:'An auditory phenomenon as much as a person.'},
-      {id:'sable_architect',   rank:9,  name:'The Sable Architect',   trueName:'Lena Vorst',            status:'normal', tooltip:'Designs structures with purposes the Guild cannot classify.'},
-      {id:'vile_herald',       rank:10, name:'The Vile Herald',       trueName:'Rann Voss',             status:'normal', tooltip:'Active threat. Under Guild surveillance.'},
-      {id:'gilded_serpent',    rank:11, name:'The Gilded Serpent',    trueName:'Marisol Denn',          status:'normal', tooltip:'Poisoner and spymaster.'},
-      {id:'grey_sovereign',    rank:12, name:'The Grey Sovereign',    trueName:'Possible alias: Devan', status:'normal', tooltip:'Minor villain elevated by circumstance.'},
-      {id:'shattered_bell',    rank:13, name:'The Shattered Bell',    trueName:'Unknown',               status:'normal', tooltip:'Operates through proxies.'},
+      {id:'mad_mage',              rank:1,  name:'The Mad Mage',              trueName:'Karthon the Gift-Giver',      status:'normal',   tooltip:'Many Villains have tried to destroy the world. To date, only Karthon has succeeded.'},
+      {id:'infernal_swordsman',    rank:2,  name:'The Infernal Swordsman',    trueName:'Emmanurel Del Soleil',        status:'normal',   tooltip:''},
+      {id:'end_harbinger',         rank:3,  name:'The Harbinger of the End',  trueName:'Cornellius Del Alba',         status:'normal',   tooltip:'King of Albion and prophet of the fell god Yargul. Brother of the Peerless Inventor.'},
+      {id:'queen_winter',          rank:4,  name:'The Queen of Winter',       trueName:'Isabella Del Lune',           status:'normal',   tooltip:'Queen of the Principality of Twilight. Former Names include the Fey Enchantress and the Lich Queen. Currently a High Sidhe, the queen of Winter Court.'},
+      {id:'high_inquisitor',       rank:5,  name:'The High Inquisitor',       trueName:'Martin Beauregard',           status:'normal',   tooltip:''},
+      {id:'prince_thorns',         rank:6,  name:'The Prince of Thorns',      trueName:'Leif',                        status:'normal',   tooltip:'Saint of Janus, known for his brutality and the armor he never removes. Located in Shadowfall.'},
+      {id:'red_lady',              rank:7,  name:'The Red Lady',              trueName:'Ivana Katerina Boranova',     status:'normal',   tooltip:'Fire sorceress of the northern continent.'},
+      {id:'sinister_physician',    rank:8,  name:'The Sinister Physician',    trueName:'Dr. Festus Krox',             status:'normal',   tooltip:'Mercenary physician and alchemist, kobold. Trained as a physician in Salia on the Northern Continent. Known to take extreme measures to collect on payments.'},
+      {id:'watcher_knight',        rank:9,  name:'The Watcher Knight',        trueName:'Holston Sanders',             status:'normal',   tooltip:'Former hero and defender of the city of Sartoria. Wields the Barrow Sword, Ustengrav.'},
+      {id:'fools_idol',            rank:10, name:"The Fool's Idol",           trueName:'Unknown',                     status:'normal',   tooltip:'Saint of Janus. Has been active for centuries. Appears capable of assuming the identities of others.'},
     ]},
   ]
 };
 
-// ═══════════════════════════════════════════════════════════════
-//  STATE
-// ═══════════════════════════════════════════════════════════════
 let curTab = 'heroes';
 const vi = { heroes:0, villains:0 };
 
-// ═══════════════════════════════════════════════════════════════
-//  UTILS
-// ═══════════════════════════════════════════════════════════════
 const ROM=[[1000,'M'],[900,'CM'],[500,'D'],[400,'CD'],[100,'C'],[90,'XC'],[50,'L'],[40,'XL'],[10,'X'],[9,'IX'],[5,'V'],[4,'IV'],[1,'I']];
 function toRom(n){let s='';for(const[v,r]of ROM)while(n>=v){s+=r;n-=v}return s}
 function esc(s){return(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
@@ -268,9 +239,6 @@ function chHtml(c) {
   return '<span class="ech"></span>';
 }
 
-// ═══════════════════════════════════════════════════════════════
-//  RENDER
-// ═══════════════════════════════════════════════════════════════
 function render() {
   const versions = DATA[curTab];
   const idx      = vi[curTab];
@@ -335,9 +303,6 @@ function render() {
     <ul class="ent-list ${isH ? 'heroes-list' : 'villains-list'}">${rows}</ul>`;
 }
 
-// ═══════════════════════════════════════════════════════════════
-//  CONTROLS
-// ═══════════════════════════════════════════════════════════════
 function switchTab(tab) {
   curTab = tab;
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
@@ -345,9 +310,6 @@ function switchTab(tab) {
 }
 function swVer(i) { vi[curTab] = i; render(); }
 
-// ═══════════════════════════════════════════════════════════════
-//  TOOLTIP
-// ═══════════════════════════════════════════════════════════════
 const tipEl = document.getElementById('tip');
 let lastTn = null;
 document.addEventListener('mousemove', e => {
